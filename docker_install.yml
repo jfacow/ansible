@@ -4,14 +4,29 @@
 
   tasks:
     - name: add docker repo
-      shell:  yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-    - name: install docker-ce
-      yum:
-        name: 'docker-ce'
-        state: latest
+      shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    - name: download docker-compose file
+      shell: curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/bin/docker-compose
+    - name: Permission file module
+      file:
+        path: /usr/bin/docker-compose
+        owner: root
+        group: root
+        mode: 0750
+    #- name: install docker-ce
+    #  yum:
+    #    name: 'docker-ce,'
+    #    state: latest
     - name: start docker
       shell: systemctl start docker
     - name: enable autostart docker
       shell: systemctl enable docker
     - name: check docker hello-world
       shell: docker run hello-world
+    - name: install docker, epel, ncdu, tmux
+      yum: pkg={{item}} state=installed
+      with_items:
+      - docker-ce
+      - tmux
+      - epel-release
+      - ncdu
