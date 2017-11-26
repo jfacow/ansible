@@ -3,5 +3,20 @@
   remote_user: root
 
   tasks:
-  - name: ensure apache is at the latest version
-    yum: name=httpd state=latest
+  #- name: ensure apache is at the latest version
+  #  yum: name=httpd state=latest
+  - name: remove the Apache package
+    yum:
+      name: httpd
+      state: absent
+  
+  - name: upgrade all packages
+    yum:
+      name: '*'
+      state: latest
+  - name: Installing tmux
+    yum:
+      name: tmux
+      state: latest
+  - name: Run a shell command
+    shell: df -h
