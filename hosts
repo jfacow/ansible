@@ -1,5 +1,5 @@
 [do]
-45.55.88.232 ansible_user_pass='8585750q' ansible_connection=ssh ansible_user=root ansible_ssh_user=root ansible_ssh_pass='8585750q'
+45.55.88.232 ansible_ssh_user=root ansible_ssh_pass='8585750q'
 
 [dbservers]
 one.example.com
